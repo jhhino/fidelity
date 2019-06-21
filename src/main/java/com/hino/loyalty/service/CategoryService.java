@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hino.loyalty.domain.Category;
 import com.hino.loyalty.repository.CategoryRepository;
+import com.hino.loyalty.service.exception.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -16,7 +17,8 @@ public class CategoryService {
 
 	public Category getCategoryById(Integer id) {
 		Optional<Category> obj = categoryRepository .findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Category not found!** Id: " + id + ", Tipo: " + Category.class.getName()));
 	}
 
 }
