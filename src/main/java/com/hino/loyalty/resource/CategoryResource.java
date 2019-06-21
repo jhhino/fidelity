@@ -3,6 +3,9 @@ package com.hino.loyalty.resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,22 +17,14 @@ import com.hino.loyalty.service.CategoryService;
 @RequestMapping(value="/categories")
 public class CategoryResource {
 	
+	@Autowired
 	private CategoryService categoryService = new CategoryService();
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Category> list() {
-		Category color = new Category(1, "COLOR", "Category for any products as color makup.");
-		Category frag = new Category(2, "FRAGRANCE", "Category for any products as parfum/fragrance.");
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {
+		Category category = categoryService.getCategoryById(id);
 		
-		List<Category> categoryList = new ArrayList<Category>();
-		categoryList.add(color);
-		categoryList.add(frag);
-		
-		return categoryList;
+		return ResponseEntity.ok().body(category);
 	}
 	
-	public Category getCategory(Integer categoryId) {
-		return categoryService.getCategoryById(categoryId);
-	}
-	}
 }
