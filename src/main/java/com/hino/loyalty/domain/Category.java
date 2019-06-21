@@ -1,11 +1,14 @@
 package com.hino.loyalty.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Category implements Serializable {
@@ -18,7 +21,8 @@ public class Category implements Serializable {
 	private String name;
 	private String description;
 	
-	
+	@OneToMany
+	private List<Product> productList = new ArrayList<Product>();
 	
 	public Category() {
 		
@@ -53,6 +57,14 @@ public class Category implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
 	}
 
 	@Override
