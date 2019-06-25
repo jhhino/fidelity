@@ -6,10 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.hino.loyalty.domain.enums.Tier;
 
@@ -23,9 +26,14 @@ public class Customer implements Serializable {
 	private Integer id;
 	private String name;
 	private String email;
-	private Set<String> phones = new HashSet<String>();
 	private Integer tier;
+	
+	@OneToMany(mappedBy="customer")
 	private List<Address> adressList = new ArrayList<Address>();
+	
+	@ElementCollection
+	@CollectionTable(name = "phone")
+	private Set<String> phones = new HashSet<String>();
 	
 	public Customer() {
 	}

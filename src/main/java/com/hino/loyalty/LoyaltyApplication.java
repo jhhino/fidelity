@@ -8,12 +8,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.hino.loyalty.domain.Address;
 import com.hino.loyalty.domain.Category;
 import com.hino.loyalty.domain.City;
+import com.hino.loyalty.domain.Customer;
 import com.hino.loyalty.domain.Product;
 import com.hino.loyalty.domain.State;
+import com.hino.loyalty.domain.enums.Tier;
+import com.hino.loyalty.repository.AddressRepository;
 import com.hino.loyalty.repository.CategoryRepository;
 import com.hino.loyalty.repository.CityRepository;
+import com.hino.loyalty.repository.CustomerRepository;
 import com.hino.loyalty.repository.ProductRepository;
 import com.hino.loyalty.repository.StateRepository;
 
@@ -28,6 +33,10 @@ public class LoyaltyApplication implements CommandLineRunner {
 	private StateRepository stateRepository;
 	@Autowired
 	private CityRepository cityRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LoyaltyApplication.class, args);
@@ -77,6 +86,14 @@ public class LoyaltyApplication implements CommandLineRunner {
 		stateRepository.saveAll(Arrays.asList(sp,mg,rj,pr));
 		cityRepository.saveAll(Arrays.asList(saoPaulo,promissao,barueri,lins,beloHorizonte,uberlandia,rio,curitiba));
 		
+		Customer joseph = new Customer(null,"Joseph Grey","joseh.grey@email.com",Tier.REGULAR);
+		joseph.getPhones().addAll(Arrays.asList("11912340123","11912340124"));
+		
+		Address ad1 = new Address(null,"Home","Av Paulista","1234, apt123","Bela Vista","04500001",saoPaulo);
+		joseph.getAdressList().add(ad1);
+		
+		customerRepository.save(joseph);
+		addressRepository.save(ad1);
 		
 //		fragrance.getProductList().addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));
 //		color.getProductList().addAll(Arrays.asList(p8,p9));

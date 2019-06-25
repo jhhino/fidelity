@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Address implements Serializable {
@@ -22,7 +24,13 @@ public class Address implements Serializable {
 	private String neighbor;
 	private String postalCode;
 	
+	@ManyToOne
+	@JoinColumn(name = "city_id")
 	private City city;
+	
+	@ManyToOne
+	@JoinColumn(name =  "customer_id")
+	private Customer customer;
 
 	public Address() {
 	}
