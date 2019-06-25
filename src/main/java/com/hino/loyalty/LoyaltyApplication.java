@@ -9,9 +9,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.hino.loyalty.domain.Category;
+import com.hino.loyalty.domain.City;
 import com.hino.loyalty.domain.Product;
+import com.hino.loyalty.domain.State;
 import com.hino.loyalty.repository.CategoryRepository;
+import com.hino.loyalty.repository.CityRepository;
 import com.hino.loyalty.repository.ProductRepository;
+import com.hino.loyalty.repository.StateRepository;
 
 @SpringBootApplication
 public class LoyaltyApplication implements CommandLineRunner {
@@ -20,6 +24,10 @@ public class LoyaltyApplication implements CommandLineRunner {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private StateRepository stateRepository;
+	@Autowired
+	private CityRepository cityRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LoyaltyApplication.class, args);
@@ -46,6 +54,29 @@ public class LoyaltyApplication implements CommandLineRunner {
 		Product p9 = new Product(null, "0131", "Dark lips","M.A.C.", BigDecimal.valueOf(89.90), color);
 		Product p10 = new Product(null, "0132", "Serum eye lift","Dermage", BigDecimal.valueOf(1199.99), skincare);
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
+		
+		State sp = new State(null,"São Paulo","SP",null);
+		State mg = new State(null,"Mina Gerais","MG",null);
+		State rj = new State(null,"Rio de Janeiro","RJ",null);
+		State pr = new State(null,"Paraná","PR",null);
+		
+		City saoPaulo = new City(null,"São Paulo",null,sp);
+		City promissao = new City(null,"Promissao",null,sp);
+		City barueri = new City(null,"Barueri",null,sp);
+		City lins = new City(null,"Lins",null,sp);
+		City beloHorizonte = new City(null,"Belo Horizonte",null,mg);
+		City uberlandia = new City(null,"Uberlandia",null,mg);
+		City rio = new City(null,"Rio de Janeiro",null,rj);
+		City curitiba = new City(null,"Curitiba",null,pr);
+		
+		sp.getCityList().addAll(Arrays.asList(saoPaulo,promissao,barueri,lins));
+		mg.getCityList().addAll(Arrays.asList(beloHorizonte,uberlandia));
+		rj.getCityList().addAll(Arrays.asList(rio));
+		pr.getCityList().addAll(Arrays.asList(curitiba));
+		
+		stateRepository.saveAll(Arrays.asList(sp,mg,rj,pr));
+		cityRepository.saveAll(Arrays.asList(saoPaulo,promissao,barueri,lins,beloHorizonte,uberlandia,rio,curitiba));
+		
 		
 //		fragrance.getProductList().addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));
 //		color.getProductList().addAll(Arrays.asList(p8,p9));
