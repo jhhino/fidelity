@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hino.loyalty.domain.enums.Tier;
 
 @Entity
@@ -28,6 +29,7 @@ public class Customer implements Serializable {
 	private String email;
 	private Integer tier;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="customer")
 	private List<Address> adressList = new ArrayList<Address>();
 	

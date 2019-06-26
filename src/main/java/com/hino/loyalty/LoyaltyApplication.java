@@ -89,11 +89,12 @@ public class LoyaltyApplication implements CommandLineRunner {
 		Customer joseph = new Customer(null,"Joseph Grey","joseh.grey@email.com",Tier.REGULAR);
 		joseph.getPhones().addAll(Arrays.asList("11912340123","11912340124"));
 		
-		Address ad1 = new Address(null,"Home","Av Paulista","1234, apt123","Bela Vista","04500001",saoPaulo);
-		joseph.getAdressList().add(ad1);
+		Address ad1 = new Address(null,"Home","Av Paulista","1234, apt123","Bela Vista","04500001",saoPaulo,joseph);
+		Address ad2 = new Address(null,"Home","Av Pedro de Toledo","1234, apt1","Centro","16370000",promissao,joseph);
+		joseph.getAdressList().addAll(Arrays.asList(ad1, ad2));
 		
-		customerRepository.save(joseph);
-		addressRepository.save(ad1);
+		customerRepository.saveAll(Arrays.asList(joseph));
+		addressRepository.saveAll(Arrays.asList(ad1,ad2));
 		
 //		fragrance.getProductList().addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));
 //		color.getProductList().addAll(Arrays.asList(p8,p9));
