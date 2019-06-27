@@ -15,7 +15,7 @@ public class CreditCardPayment extends Payment {
 		
 	}
 
-	public CreditCardPayment(Integer id, PaymentStatus status, Order order, Integer installmentNumber) {
+	public CreditCardPayment(Integer id, PaymentStatus status, PurchaseOrder order, Integer installmentNumber) {
 		super(id, status, order);
 		this.installmentNumber = installmentNumber;
 		// TODO Auto-generated constructor stub

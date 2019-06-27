@@ -1,6 +1,7 @@
 package com.hino.loyalty;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +10,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.hino.loyalty.domain.Address;
+import com.hino.loyalty.domain.BoletoPayment;
 import com.hino.loyalty.domain.Category;
 import com.hino.loyalty.domain.City;
+import com.hino.loyalty.domain.CreditCardPayment;
 import com.hino.loyalty.domain.Customer;
+import com.hino.loyalty.domain.Payment;
 import com.hino.loyalty.domain.Product;
+import com.hino.loyalty.domain.PurchaseOrder;
 import com.hino.loyalty.domain.State;
+import com.hino.loyalty.domain.enums.PaymentStatus;
 import com.hino.loyalty.domain.enums.Tier;
 import com.hino.loyalty.repository.AddressRepository;
 import com.hino.loyalty.repository.CategoryRepository;
 import com.hino.loyalty.repository.CityRepository;
 import com.hino.loyalty.repository.CustomerRepository;
+import com.hino.loyalty.repository.PaymentRepository;
 import com.hino.loyalty.repository.ProductRepository;
+import com.hino.loyalty.repository.PurchaseOrderRepository;
 import com.hino.loyalty.repository.StateRepository;
 
 @SpringBootApplication
@@ -37,6 +45,10 @@ public class LoyaltyApplication implements CommandLineRunner {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private AddressRepository addressRepository;
+	@Autowired
+	private PurchaseOrderRepository purchaseOrderRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LoyaltyApplication.class, args);
@@ -96,13 +108,23 @@ public class LoyaltyApplication implements CommandLineRunner {
 		customerRepository.saveAll(Arrays.asList(joseph));
 		addressRepository.saveAll(Arrays.asList(ad1,ad2));
 		
-//		fragrance.getProductList().addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));
-//		color.getProductList().addAll(Arrays.asList(p8,p9));
-//		skincare.getProductList().addAll(Arrays.asList(p10));
-	
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		PurchaseOrder order1 = new PurchaseOrder(null, 1, 32001, sdf.parse("05/11/1980 05:00"),1611.00, joseph, ad2);  
+		PurchaseOrder order2 = new PurchaseOrder(null, 1, 32002, sdf.parse("06/11/1980 05:00"),1612.00, joseph, ad1);
 		
+		Payment payment1 = new BoletoPayment(null, PaymentStatus.PENDING, order1, sdf.parse("10/10/1990 00:00"), null);
+		order1.setPayment(payment1);
 		
+		Payment payment2 = new CreditCardPayment(null, PaymentStatus.PENDING, order2, 3);
+		order2.setPayment(payment2);
+		
+		joseph.getOrderList().addAll(Arrays.asList(order1, order2));
+		
+		purchaseOrderRepository.saveAll(Arrays.asList(order1, order2));
+		
+		paymentRepository.saveAll(Arrays.asList(payment1, payment2));
 	}
 
 }

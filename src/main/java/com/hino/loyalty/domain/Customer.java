@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Customer implements Serializable {
 	private Integer tier;
 	
 	@JsonManagedReference
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
 	private List<Address> adressList = new ArrayList<Address>();
 	
 	@ElementCollection
@@ -38,7 +39,7 @@ public class Customer implements Serializable {
 	private Set<String> phones = new HashSet<String>();
 	
 	@OneToMany(mappedBy="customer")
-	private List<Order> OrderList = new ArrayList<Order>();
+	private List<PurchaseOrder> orderList = new ArrayList<PurchaseOrder>();
 	
 	public Customer() {
 	}
@@ -126,12 +127,12 @@ public class Customer implements Serializable {
 		this.adressList = adressList;
 	}
 
-	public List<Order> getOrderList() {
-		return OrderList;
+	public List<PurchaseOrder> getOrderList() {
+		return orderList;
 	}
 
-	public void setOrderList(List<Order> orderList) {
-		OrderList = orderList;
+	public void setOrderList(List<PurchaseOrder> orderList) {
+		this.orderList = orderList;
 	}
 	
 }

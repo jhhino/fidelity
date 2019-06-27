@@ -11,18 +11,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Order implements Serializable {
+public class PurchaseOrder implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private Integer terminalNumber;
 	private Integer orderNumber;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date orderDate;
+	
 	private Double totalAmount;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy = "order")	
@@ -36,19 +45,18 @@ public class Order implements Serializable {
 	@JoinColumn(name = "delivery_address_id")
 	private Address deliveryAddress;
 	
-	public Order() {
+	public PurchaseOrder() {
 		
 	}
 
-	public Order(Integer id, Integer terminalNumber, Integer orderNumber, Date orderDate, Double totalAmount,
-			Payment payment, Customer customer, Address deliveryAddress) {
+	public PurchaseOrder(Integer id, Integer terminalNumber, Integer orderNumber, Date orderDate, Double totalAmount,
+			Customer customer, Address deliveryAddress) {
 		super();
 		this.id = id;
 		this.terminalNumber = terminalNumber;
 		this.orderNumber = orderNumber;
 		this.orderDate = orderDate;
 		this.totalAmount = totalAmount;
-		this.payment = payment;
 		this.customer = customer;
 		this.deliveryAddress = deliveryAddress;
 	}
@@ -133,7 +141,7 @@ public class Order implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Order other = (Order) obj;
+		PurchaseOrder other = (PurchaseOrder) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

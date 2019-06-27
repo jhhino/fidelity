@@ -10,31 +10,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.hino.loyalty.domain.enums.PaymentStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Payment implements Serializable {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+public abstract class Payment implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Integer id;
-	private PaymentStatus status;
+	private Integer status;
 	
+
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "order_id")
 	@MapsId
-	private Order order;
+	private PurchaseOrder order;
 	
 	public Payment() {
 		
 	}
 
-	public Payment(Integer id, PaymentStatus status, Order order) {
+	public Payment(Integer id, PaymentStatus status, PurchaseOrder order) {
 		super();
 		this.id = id;
-		this.status = status;
+		this.status = (status == null) ? null : status.getId();
 		this.order = order;
 	}
 
@@ -46,19 +51,19 @@ public class Payment implements Serializable {
 		this.id = id;
 	}
 
-	public PaymentStatus getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
 	public void setStatus(PaymentStatus status) {
-		this.status = status;
+		this.status = status.getId();
 	}
 
-	public Order getOrder() {
+	public PurchaseOrder getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(PurchaseOrder order) {
 		this.order = order;
 	}
 
