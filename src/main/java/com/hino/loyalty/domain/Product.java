@@ -2,12 +2,17 @@ package com.hino.loyalty.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product implements Serializable {
@@ -24,6 +29,9 @@ public class Product implements Serializable {
 	
 	@ManyToOne
 	private Category category;
+	
+	@OneToMany(mappedBy = "id.product")
+	private Set<PurchaseItem> purchaseItems = new HashSet<PurchaseItem>();
 
 	public Product() {};
 	
@@ -85,6 +93,23 @@ public class Product implements Serializable {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
+	public Set<PurchaseItem> getPurchaseItems() {
+		return purchaseItems;
+	}
+
+	public void setPurchaseItems(Set<PurchaseItem> purchaseItems) {
+		this.purchaseItems = purchaseItems;
+	}
+	
+	public List<PurchaseOrder> getPurchaseOrders() {
+		List<PurchaseOrder> purchaseOrderList = new ArrayList<PurchaseOrder>();
+		for (PurchaseItem item : purchaseItems) {
+			purchaseOrderList.add(item.getPurchaseOrder());
+		}
+		return purchaseOrderList;
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -110,5 +135,6 @@ public class Product implements Serializable {
 			return false;
 		return true;
 	}
-	
+
+
 }

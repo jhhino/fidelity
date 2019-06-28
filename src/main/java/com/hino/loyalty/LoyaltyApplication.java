@@ -17,6 +17,7 @@ import com.hino.loyalty.domain.CreditCardPayment;
 import com.hino.loyalty.domain.Customer;
 import com.hino.loyalty.domain.Payment;
 import com.hino.loyalty.domain.Product;
+import com.hino.loyalty.domain.PurchaseItem;
 import com.hino.loyalty.domain.PurchaseOrder;
 import com.hino.loyalty.domain.State;
 import com.hino.loyalty.domain.enums.PaymentStatus;
@@ -27,6 +28,7 @@ import com.hino.loyalty.repository.CityRepository;
 import com.hino.loyalty.repository.CustomerRepository;
 import com.hino.loyalty.repository.PaymentRepository;
 import com.hino.loyalty.repository.ProductRepository;
+import com.hino.loyalty.repository.PurchaseItemRepository;
 import com.hino.loyalty.repository.PurchaseOrderRepository;
 import com.hino.loyalty.repository.StateRepository;
 
@@ -49,6 +51,8 @@ public class LoyaltyApplication implements CommandLineRunner {
 	private PurchaseOrderRepository purchaseOrderRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private PurchaseItemRepository purchaseItemRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LoyaltyApplication.class, args);
@@ -125,6 +129,20 @@ public class LoyaltyApplication implements CommandLineRunner {
 		purchaseOrderRepository.saveAll(Arrays.asList(order1, order2));
 		
 		paymentRepository.saveAll(Arrays.asList(payment1, payment2));
+		
+		PurchaseItem pi1 = new PurchaseItem(order1, p1, 0.00, 2, 500.00);
+		PurchaseItem pi2 = new PurchaseItem(order1, p3, 0.00, 1, 399.99);
+		PurchaseItem pi3 = new PurchaseItem(order2, p2, 100.00, 1, 199.99);
+		
+		order1.getPurchaseItems().addAll(Arrays.asList(pi1,pi2));
+		order2.getPurchaseItems().addAll(Arrays.asList(pi3));
+		
+		p1.getPurchaseItems().addAll(Arrays.asList(pi1));
+		p2.getPurchaseItems().addAll(Arrays.asList(pi3));
+		p3.getPurchaseItems().addAll(Arrays.asList(pi2));
+		
+		purchaseItemRepository.saveAll(Arrays.asList(pi1,pi2,pi3));
+		
 	}
 
 }
