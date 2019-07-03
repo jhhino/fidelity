@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Product implements Serializable {
 	
@@ -30,6 +32,7 @@ public class Product implements Serializable {
 	@ManyToOne
 	private Category category;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.product")
 	private Set<PurchaseItem> purchaseItems = new HashSet<PurchaseItem>();
 
@@ -102,6 +105,7 @@ public class Product implements Serializable {
 		this.purchaseItems = purchaseItems;
 	}
 	
+	@JsonIgnore
 	public List<PurchaseOrder> getPurchaseOrders() {
 		List<PurchaseOrder> purchaseOrderList = new ArrayList<PurchaseOrder>();
 		for (PurchaseItem item : purchaseItems) {

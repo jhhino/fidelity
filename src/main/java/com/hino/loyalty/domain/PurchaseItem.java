@@ -5,12 +5,15 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class PurchaseItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId
 	private PurchaseItemPK id = new PurchaseItemPK();
 	
@@ -55,6 +58,23 @@ public class PurchaseItem implements Serializable {
 		this.quantity = quantity;
 	}
 
+	public Double getSubtotalAmount() {
+		return subtotalAmount;
+	}
+
+	public void setSubtotalAmount(Double subtotalAmount) {
+		this.subtotalAmount = subtotalAmount;
+	}
+	
+	@JsonIgnore
+	public PurchaseOrder getPurchaseOrder() {
+		return this.id.getOrder();
+	}
+	
+	public Product getProduct() {
+		return this.id.getProduct();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,23 +98,6 @@ public class PurchaseItem implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public Double getSubtotalAmount() {
-		return subtotalAmount;
-	}
-
-	public void setSubtotalAmount(Double subtotalAmount) {
-		this.subtotalAmount = subtotalAmount;
-	}
-	
-	// to have straight access to PurchaseOrder
-	public PurchaseOrder getPurchaseOrder() {
-		return this.getPurchaseOrder();
-	}
-	
-	public Product getProduct() {
-		return this.getProduct();
 	}
 	
 	
