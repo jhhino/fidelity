@@ -1,13 +1,16 @@
 package com.hino.loyalty.service;
 
+import java.nio.file.DirectoryIteratorException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.hino.loyalty.domain.Category;
 import com.hino.loyalty.repository.CategoryRepository;
+import com.hino.loyalty.service.exception.DataIntegrityException;
 import com.hino.loyalty.service.exception.ObjectNotFoundException;
 
 @Service
@@ -34,6 +37,15 @@ public class CategoryService {
 
 	public List<Category> findAll() {
 		return categoryRepository.findAll();
+	}
+
+	public void delete(Integer id) {
+		getCategoryById(id);
+		try {
+			categoryRepository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Not possible to delete a Category coitaining Products associated.", e);
+		}
 	}
 
 }
