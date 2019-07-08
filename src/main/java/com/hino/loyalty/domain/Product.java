@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,8 +31,13 @@ public class Product implements Serializable {
 	private String brandName;
 	private BigDecimal price;
 	
-	@ManyToOne
-	private Category category;
+//	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "PRODUCT_CATEGORY",
+		joinColumns = @JoinColumn(name = "product_id"),
+		inverseJoinColumns = @JoinColumn(name = "category_id")
+	)
+	private List<Category> categoryList = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.product")
@@ -38,15 +45,13 @@ public class Product implements Serializable {
 
 	public Product() {};
 	
-	public Product(Integer id, String skuNumber, String skuName, String brandName, BigDecimal price,
-			Category category) {
+	public Product(Integer id, String skuNumber, String skuName, String brandName, BigDecimal price) {
 		super();
 		this.id = id;
 		this.skuNumber = skuNumber;
 		this.skuName = skuName;
 		this.brandName = brandName;
 		this.price = price;
-		this.category = category;
 	}
 
 	public Integer getId() {
@@ -89,14 +94,14 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
-	public Category getCategory() {
-		return category;
+	public List<Category> getCategoryList() {
+		return categoryList;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategoryList(List<Category> categoryList) {
+		this.categoryList = categoryList;
 	}
-	
+
 	public Set<PurchaseItem> getPurchaseItems() {
 		return purchaseItems;
 	}

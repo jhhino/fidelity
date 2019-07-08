@@ -66,18 +66,33 @@ public class LoyaltyApplication implements CommandLineRunner {
 		Category skincare = new Category(null,"Skincare","Category related to any skincare product.");
 		Category hair = new Category(null,"Hair","Category related to any hair product.");
 		
-		categoryRepository.saveAll(Arrays.asList(fragrance, color, skincare, hair));
+		Product p1 = new Product(null, "0123", "CKOne","Calvin Kein", BigDecimal.valueOf(100.00));
+		Product p2 = new Product(null, "0124", "Eternity","Calvin Kein", BigDecimal.valueOf(150.00));
+		Product p3 = new Product(null, "0125", "212","Carolina Herrera", BigDecimal.valueOf(120.00));
+		Product p4 = new Product(null, "0126", "Polo Red","Polo Ralph Lauren", BigDecimal.valueOf(130.00));
+		Product p5 = new Product(null, "0127", "Polo Blue","Polo Ralph Lauren", BigDecimal.valueOf(125.00));
+		Product p6 = new Product(null, "0128", "Polo Green","Polo Ralph Lauren", BigDecimal.valueOf(125.00));
+		Product p7 = new Product(null, "0129", "Polo Black","Polo Ralph Lauren", BigDecimal.valueOf(139.99));
+		Product p8 = new Product(null, "0130", "Rouge lip stick","M.A.C.", BigDecimal.valueOf(69.90));
+		Product p9 = new Product(null, "0131", "Dark lips","M.A.C.", BigDecimal.valueOf(89.90));
+		Product p10 = new Product(null, "0132", "Serum eye lift","Dermage", BigDecimal.valueOf(1199.99));
 		
-		Product p1 = new Product(null, "0123", "CKOne","Calvin Kein", BigDecimal.valueOf(100.00), fragrance);
-		Product p2 = new Product(null, "0124", "Eternity","Calvin Kein", BigDecimal.valueOf(150.00), fragrance);
-		Product p3 = new Product(null, "0125", "212","Carolina Herrera", BigDecimal.valueOf(120.00), fragrance);
-		Product p4 = new Product(null, "0126", "Polo Red","Polo Ralph Lauren", BigDecimal.valueOf(130.00), fragrance);
-		Product p5 = new Product(null, "0127", "Polo Blue","Polo Ralph Lauren", BigDecimal.valueOf(125.00), fragrance);
-		Product p6 = new Product(null, "0128", "Polo Green","Polo Ralph Lauren", BigDecimal.valueOf(125.00), fragrance);
-		Product p7 = new Product(null, "0129", "Polo Black","Polo Ralph Lauren", BigDecimal.valueOf(139.99), fragrance);
-		Product p8 = new Product(null, "0130", "Rouge lip stick","M.A.C.", BigDecimal.valueOf(69.90), color);
-		Product p9 = new Product(null, "0131", "Dark lips","M.A.C.", BigDecimal.valueOf(89.90), color);
-		Product p10 = new Product(null, "0132", "Serum eye lift","Dermage", BigDecimal.valueOf(1199.99), skincare);
+		fragrance.getProductList().addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));
+		color.getProductList().addAll(Arrays.asList(p8,p9));
+		skincare.getProductList().addAll(Arrays.asList(p10));
+
+		p1.getCategoryList().addAll(Arrays.asList(fragrance));
+		p2.getCategoryList().addAll(Arrays.asList(fragrance));
+		p3.getCategoryList().addAll(Arrays.asList(fragrance));
+		p4.getCategoryList().addAll(Arrays.asList(fragrance));
+		p5.getCategoryList().addAll(Arrays.asList(fragrance));
+		p6.getCategoryList().addAll(Arrays.asList(fragrance));
+		p7.getCategoryList().addAll(Arrays.asList(fragrance));
+		p8.getCategoryList().addAll(Arrays.asList(color));
+		p9.getCategoryList().addAll(Arrays.asList(color));
+		p10.getCategoryList().addAll(Arrays.asList(skincare));
+		
+		categoryRepository.saveAll(Arrays.asList(fragrance, color, skincare, hair));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
 		
 		State sp = new State(null,"São Paulo","SP",null);

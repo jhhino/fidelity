@@ -1,5 +1,6 @@
 package com.hino.loyalty.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 
 	public Category getCategoryById(Integer id) {
-		Optional<Category> obj = categoryRepository .findById(id);
+		Optional<Category> obj = categoryRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Category not found!** Id: " + id + ", Tipo: " + Category.class.getName()));
 	}
@@ -29,6 +30,10 @@ public class CategoryService {
 	public Category update(Category category) {
 		getCategoryById(category.getId());
 		return categoryRepository.save(category);
+	}
+
+	public List<Category> findAll() {
+		return categoryRepository.findAll();
 	}
 
 }

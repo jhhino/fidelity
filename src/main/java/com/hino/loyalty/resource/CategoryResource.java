@@ -1,6 +1,7 @@
 package com.hino.loyalty.resource;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,12 @@ public class CategoryResource {
 	public ResponseEntity<Void> update(@RequestBody Category category, @PathVariable Integer id) {
 		category = categoryService.update(category);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Category>> findAll() {
+		List<Category> categoryList = categoryService.findAll();
+		
+		return ResponseEntity.ok().body(categoryList);
 	}
 }
