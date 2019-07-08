@@ -66,6 +66,12 @@ public class LoyaltyApplication implements CommandLineRunner {
 		Category skincare = new Category(null,"Skincare","Category related to any skincare product.");
 		Category hair = new Category(null,"Hair","Category related to any hair product.");
 		
+		Category service = new Category(null,"Service","Category related to any service.");
+		Category accessory = new Category(null,"Accessory","Category related to any accessory.");
+		Category gift = new Category(null,"Gift","Category related to any regular gift.");
+		Category loyaltyGift = new Category(null,"Loyalty Gift","Category related to any loyalty gift.");
+		Category sample = new Category(null,"Sample","Category related to any sample.");
+		
 		Product p1 = new Product(null, "0123", "CKOne","Calvin Kein", BigDecimal.valueOf(100.00));
 		Product p2 = new Product(null, "0124", "Eternity","Calvin Kein", BigDecimal.valueOf(150.00));
 		Product p3 = new Product(null, "0125", "212","Carolina Herrera", BigDecimal.valueOf(120.00));
@@ -92,7 +98,7 @@ public class LoyaltyApplication implements CommandLineRunner {
 		p9.getCategoryList().addAll(Arrays.asList(color));
 		p10.getCategoryList().addAll(Arrays.asList(skincare));
 		
-		categoryRepository.saveAll(Arrays.asList(fragrance, color, skincare, hair));
+		categoryRepository.saveAll(Arrays.asList(fragrance, color, skincare, hair, service, accessory, gift, loyaltyGift, sample));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
 		
 		State sp = new State(null,"São Paulo","SP",null);
