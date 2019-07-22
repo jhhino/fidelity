@@ -49,7 +49,7 @@ public class Customer implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.tier = tier.getId();
+		this.tier = (tier == null) ? null : tier.getId();
 	}
 
 	public Integer getId() {
