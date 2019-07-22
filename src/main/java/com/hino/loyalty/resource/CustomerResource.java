@@ -1,6 +1,8 @@
 package com.hino.loyalty.resource;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.hino.loyalty.domain.Customer;
+import com.hino.loyalty.dto.CustomerDTO;
 import com.hino.loyalty.dto.CustomerNewDTO;
 import com.hino.loyalty.service.CustomerService;
 
@@ -39,5 +42,25 @@ public class CustomerResource {
 				.path("/{id}").buildAndExpand(customer.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value = "/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Customer customer, @PathVariable Integer id) {
+		customer = customerService.update(customer);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		customerService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CustomerDTO>> findAll() {
+		List<Customer> customerList = customerService.findAll();
+		List<CustomerDTO> dtoList = customerList.stream().map(obj -> new CustomerDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(dtoList);
+	}
+	
 	
 }

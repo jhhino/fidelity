@@ -5,6 +5,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.hino.loyalty.domain.Customer;
+
 public class CustomerDTO {
 	private Integer id;
 	
@@ -15,6 +17,12 @@ public class CustomerDTO {
 	@NotEmpty(message = "Email account is required.")
 	@Email
 	private String email;
+	
+	public CustomerDTO(Customer c) {
+		this.id = c.getId();
+		this.name = c.getName();
+		this.email = c.getEmail();
+	}
 	
 	public Integer getId() {
 		return id;
