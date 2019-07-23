@@ -6,7 +6,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.hino.loyalty.domain.Customer;
+import com.hino.loyalty.service.validation.CustomerUpdate;
 
+@CustomerUpdate
 public class CustomerDTO {
 	private Integer id;
 	

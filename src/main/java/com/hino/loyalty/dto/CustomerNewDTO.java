@@ -2,18 +2,34 @@ package com.hino.loyalty.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.hino.loyalty.service.validation.CustomerInsert;
+
+@CustomerInsert
 public class CustomerNewDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Name is required.")
+	@Length(min = 5, max=60, message = "Name must have at least 5 characters.")
 	private String name;
+	
+	@NotEmpty(message = "Email account is required.")
+	@Email
 	private String email;
+	
 	private Integer tier;
 	
 	private String addressName;
 	private String street;
 	private String complement;
 	private String neighbor;
+	
+	@NotEmpty(message = "Postal Code is required.")
 	private String postalCode;
 	
 	private String mainPhone;
