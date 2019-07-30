@@ -25,7 +25,7 @@ import com.hino.loyalty.service.CustomerService;
 public class CustomerResource {
 	
 	@Autowired
-	private CustomerService customerService = new CustomerService();
+	private CustomerService customerService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Customer> find(@PathVariable Integer id) {

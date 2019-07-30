@@ -1,5 +1,7 @@
 package com.hino.loyalty.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -9,7 +11,10 @@ import com.hino.loyalty.domain.Customer;
 import com.hino.loyalty.service.validation.CustomerUpdate;
 
 @CustomerUpdate
-public class CustomerDTO {
+public class CustomerDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L; 
+	
 	private Integer id;
 	
 	@NotEmpty(message = "Name is required.")

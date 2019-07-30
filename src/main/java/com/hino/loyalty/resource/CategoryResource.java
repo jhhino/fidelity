@@ -26,7 +26,7 @@ import com.hino.loyalty.service.CategoryService;
 public class CategoryResource {
 	
 	@Autowired
-	private CategoryService categoryService = new CategoryService();
+	private CategoryService categoryService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Category> find(@PathVariable Integer id) {

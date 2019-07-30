@@ -15,13 +15,13 @@ import com.hino.loyalty.service.PurchaseOrderService;
 public class PurchaseOrderResource {
 	
 	@Autowired
-	private PurchaseOrderService PurchaseOrderService = new PurchaseOrderService();
+	private PurchaseOrderService purchaseOrderService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<PurchaseOrder> find(@PathVariable Integer id) {
-		PurchaseOrder PurchaseOrder = PurchaseOrderService.getPurchaseOrderById(id);
+		PurchaseOrder purchaseOrder = purchaseOrderService.getPurchaseOrderById(id);
 		
-		return ResponseEntity.ok().body(PurchaseOrder);
+		return ResponseEntity.ok().body(purchaseOrder);
 	}
 	
 }

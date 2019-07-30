@@ -1,12 +1,16 @@
 package com.hino.loyalty.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.hino.loyalty.domain.Category;
 
-public class CategoryDTO {
+public class CategoryDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	

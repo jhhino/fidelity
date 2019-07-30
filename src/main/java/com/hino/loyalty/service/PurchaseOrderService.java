@@ -13,10 +13,10 @@ import com.hino.loyalty.service.exception.ObjectNotFoundException;
 public class PurchaseOrderService {
 	
 	@Autowired
-	private PurchaseOrderRepository PurchaseOrderRepository;
+	private PurchaseOrderRepository purchaseOrderRepository;
 
 	public PurchaseOrder getPurchaseOrderById(Integer id) {
-		Optional<PurchaseOrder> obj = PurchaseOrderRepository .findById(id);
+		Optional<PurchaseOrder> obj = purchaseOrderRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"PurchaseOrder not found!** Id: " + id + ", Tipo: " + PurchaseOrder.class.getName()));
 	}
