@@ -136,8 +136,8 @@ public class LoyaltyApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		PurchaseOrder order1 = new PurchaseOrder(null, 1, 32001, sdf.parse("05/11/1980 05:00"),1611.00, joseph, ad2);  
-		PurchaseOrder order2 = new PurchaseOrder(null, 1, 32002, sdf.parse("06/11/1980 05:00"),1612.00, joseph, ad1);
+		PurchaseOrder order1 = new PurchaseOrder(null, 1, 32001, sdf.parse("05/11/1980 05:00"), joseph, ad2);  
+		PurchaseOrder order2 = new PurchaseOrder(null, 1, 32002, sdf.parse("06/11/1980 05:00"), joseph, ad1);
 		
 		Payment payment1 = new BoletoPayment(null, PaymentStatus.PENDING, order1, sdf.parse("10/10/1990 00:00"), null);
 		order1.setPayment(payment1);

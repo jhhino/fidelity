@@ -71,6 +71,10 @@ public class PurchaseItem implements Serializable {
 		return this.id.getOrder();
 	}
 	
+	public double getSubTotalAmt() {
+		return (subtotalAmount - discount ) * quantity;
+	}
+	
 	public Product getProduct() {
 		return this.id.getProduct();
 	}

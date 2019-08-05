@@ -35,7 +35,7 @@ public class PurchaseOrder implements Serializable {
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date orderDate;
 	
-	private Double totalAmount;
+//	private Double totalAmount;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy = "order")	
 	private Payment payment;
@@ -55,14 +55,13 @@ public class PurchaseOrder implements Serializable {
 		
 	}
 
-	public PurchaseOrder(Integer id, Integer terminalNumber, Integer orderNumber, Date orderDate, Double totalAmount,
+	public PurchaseOrder(Integer id, Integer terminalNumber, Integer orderNumber, Date orderDate, 
 			Customer customer, Address deliveryAddress) {
 		super();
 		this.id = id;
 		this.terminalNumber = terminalNumber;
 		this.orderNumber = orderNumber;
 		this.orderDate = orderDate;
-		this.totalAmount = totalAmount;
 		this.customer = customer;
 		this.deliveryAddress = deliveryAddress;
 	}
@@ -97,14 +96,6 @@ public class PurchaseOrder implements Serializable {
 
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
-	}
-
-	public Double getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
 	}
 
 	public Payment getPayment() {
@@ -164,6 +155,13 @@ public class PurchaseOrder implements Serializable {
 		this.purchaseItems = purchaseItems;
 	}
 	
-	
+	public Double getTotalAmount() {
+		double totalAmt = 0.0;
+		for (PurchaseItem item : purchaseItems) {
+			totalAmt += item.getSubTotalAmt();
+		}
+		
+		return totalAmt;
+	}
 	
 }
