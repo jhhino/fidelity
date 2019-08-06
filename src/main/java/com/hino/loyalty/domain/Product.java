@@ -29,7 +29,7 @@ public class Product implements Serializable {
 	private String skuNumber;
 	private String skuName;
 	private String brandName;
-	private BigDecimal price;
+	private Double price;
 	
 //	@JsonIgnore
 	@ManyToMany
@@ -45,7 +45,7 @@ public class Product implements Serializable {
 
 	public Product() {};
 	
-	public Product(Integer id, String skuNumber, String skuName, String brandName, BigDecimal price) {
+	public Product(Integer id, String skuNumber, String skuName, String brandName, Double price) {
 		super();
 		this.id = id;
 		this.skuNumber = skuNumber;
@@ -86,11 +86,11 @@ public class Product implements Serializable {
 		this.brandName = brandName;
 	}
 
-	public BigDecimal getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

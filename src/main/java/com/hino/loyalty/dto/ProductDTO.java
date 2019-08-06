@@ -12,7 +12,7 @@ public class ProductDTO implements Serializable {
 	private String skuNumber;
 	private String skuName;
 	private String brandName;
-	private BigDecimal price;
+	private Double price;
 	
 	public ProductDTO() {}
 	
@@ -48,10 +48,10 @@ public class ProductDTO implements Serializable {
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
-	public BigDecimal getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public static long getSerialversionuid() {

@@ -7,9 +7,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.hino.loyalty.domain.enums.PaymentStatus;
 
 @Entity
+@JsonTypeName("boleto")
 public class BoletoPayment extends Payment {
 	
 		private static final long serialVersionUID = 1L;
